@@ -1,4 +1,4 @@
-from .player_tokens import PlayerTokens
+from player_tokens import PlayerTokens
 
 
 class Game:
@@ -7,7 +7,7 @@ class Game:
         """Create a new game."""
         self.columns = columns
         self.rows = rows
-        self.board = [[0 for x in range(rows)] for y in range(columns)]
+        self.board = [[PlayerTokens.NOBODY for x in range(rows)] for y in range(columns)]
 
     def if_sb_win_or_game_end(self):
         """Check if somebody win or board is full"""
@@ -23,7 +23,12 @@ class Game:
 
     def print_board(self):
         """Print the board."""
+        print("Hello World")
 
     def print_winner_and_game_statistics(self):
         """When game ends print all interesting informations"""
         pass
+
+game = Game()
+game.print_board()
+

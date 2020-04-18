@@ -1,18 +1,40 @@
-from .game import Game
-from .input import get_number_of_rows_and_columns_from_user
-from .player_tokens import Player
+from model.game.game import Game
+from view.view import View
+from model.player.player import Player
+from model.player.player_token import PlayerToken
+from model.player.player_type import PlayerType
 
-game = Game(get_number_of_rows_and_columns_from_user())
-player1_move = choose_player()
-player2_move = choose_player()
 
-while game.if_sb_win_or_game_end():
-    game.print_board()
-    game.insert(player1_move, Player.X)
-    if game.if_sb_win_or_game_end():
+view = View()
+view.display_welcome_screen()
+
+first_player = Player(view.get_player_type("first"), PlayerToken.O, "first player")
+if first_player.type == PlayerType.AI:
+    first_player.create_ai(view.get_search_depth())
+
+second_player = Player(view.get_player_type("second"), PlayerToken.X, "second player")
+if second_player.type == PlayerType.AI:
+    second_player.create_ai(view.get_search_depth())
+
+game = Game(view.get_board_cols(), view.get_board_rows())
+
+current_player = first_player
+
+while 1:
+    view.display_current_turn_player(current_player.get_name())
+    view.display_board(game.get_board())
+
+    if current_player.type == PlayerType.HUMAN:
+        move = view.get_human_move(game.get_cols_amount())
+        game.insert(move, current_player)
+
+    if current_player.type == PlayerType.AI:
+        move = current_player.ai.move(game.get_board())
+        game.insert(move, current_player)
+    if game.is_end():
         break
-    game.print_board()
-    game.insert(player2_move, Player.O)
 
-game.print_board()
-game.print_winner_and_game_statistics()
+    current_player = first_player if current_player == second_player else second_player
+
+print("End")
+

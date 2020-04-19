@@ -19,8 +19,8 @@ class Game:
 
     def is_end(self):
         if check_if_sb_could_move(self.board) or check_for_winner(self.get_board()) is not PlayerToken.NOBODY:
-            return True
-        return False
+            return 1
+        return 0
 
     def insert(self, col, player):
         """Insert the player in the given column."""

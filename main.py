@@ -31,6 +31,7 @@ while 1:
     if current_player.type == PlayerType.AI:
         move = current_player.ai.move(game.get_board())
         game.insert(move, current_player)
+
     if game.is_end():
         break
 

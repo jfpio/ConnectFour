@@ -1,5 +1,5 @@
 from model.player.player_type import PlayerType
-
+from model.player.player_token import PlayerToken
 class View:
 
     def __init__(self):
@@ -41,7 +41,14 @@ class View:
     """Gameplay"""
 
     def display_board(self, board):
-        print("This is board")
+        for row in range(len(board)):
+            for col in range(len(board[row])):
+                if board[row][col] == PlayerToken.NOBODY:
+                    print("[ ]", end="")
+                else:
+                    print(board[row][col], end="")
+            print("")
+        print("")
 
     def display_current_turn_player(self, player_name):
         print("\n")

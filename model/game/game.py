@@ -7,7 +7,7 @@ class Game:
         """Create a new game."""
         self.columns = int(columns)
         self.rows = int(rows)
-        self.board = [[PlayerToken.NOBODY for x in range(int(rows))] for y in range(int(columns))]
+        self.board = [[PlayerToken.NOBODY for x in range(int(columns))] for y in range(int(rows))]
 
     def insert(self, column, player):
         """Insert the player in the given column."""

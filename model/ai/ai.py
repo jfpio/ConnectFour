@@ -6,7 +6,7 @@ class Ai:
         self.search_depth = search_depth
 
     def move(self, board):
-        chosen_column = 4
+        chosen_column = 0
         return chosen_column
 
 

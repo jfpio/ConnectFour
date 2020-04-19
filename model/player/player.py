@@ -4,19 +4,19 @@ from model.ai.ai import Ai
 
 
 class Player:
-    def __init__(self, type, token, name):
+    def __init__(self, type, token, id):
         self.type = type
         self.token = token
-        self.name = name
+        self.id = id
 
     def get_type(self):
-        return self.type
+        return self.type.value
 
     def get_token(self):
-        return self.token
+        return self.token.value
 
-    def get_name(self):
-        return self.name
+    def get_id(self):
+        return self.id
 
     def create_ai(self, search_depth):
         self.ai = Ai(search_depth, self.token)

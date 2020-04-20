@@ -1,6 +1,3 @@
-from ConnectFourGame.model.player.constants import PlayerToken
-
-
 def check_for_player_win(board, player_token):
     if check_horizontal_win(board, player_token) \
             or _check_left_to_right_win(board, player_token) \
@@ -11,15 +8,14 @@ def check_for_player_win(board, player_token):
         return False
 
 
-# TODO Change this to get board and calculate for any board
 def check_horizontal_win(board, player_token):
-    row = len(board)
-    col = len(board[0])
+    row_iter = rows_number = len(board)
+    column_iter = columns_number = len(board[0])
 
     tokens_in_line = 1
     for i in range(1, 4):
-        if col - i >= 0:
-            if board[row][col - i] == player_token:
+        if column_iter - i >= 0:
+            if board[row_iter][column_iter - i] == player_token:
                 tokens_in_line += 1
             else:
                 break
@@ -27,8 +23,8 @@ def check_horizontal_win(board, player_token):
             break
 
     for i in range(1, 4):
-        if col + i < columns:
-            if self.board[row][col + i] == player_token:
+        if column_iter + i < columns_number:
+            if board[row_iter][column_iter + i] == player_token:
                 tokens_in_line += 1
             else:
                 break
@@ -40,17 +36,16 @@ def check_horizontal_win(board, player_token):
     return False
 
 
-def _check_vertical_win(self, row_str, col_str, player):
-    row = int(row_str)
-    col = int(col_str)
-    player_token = player.get_token()
+def _check_vertical_win(board, player_token):
+    row_iter = rows_number = len(board)
+    column_iter = columns_number = len(board[0])
 
     tokens_in_line = 1
     for i in range(1, 4):
 
-        if row + i < self.rows:
+        if row_iter + i < rows_number:
 
-            if self.board[row + i][col] == player_token:
+            if board[row_iter + i][column_iter] == player_token:
                 tokens_in_line += 1
             else:
                 break
@@ -62,29 +57,27 @@ def _check_vertical_win(self, row_str, col_str, player):
     return False
 
 
-def _check_left_to_right_win(self, row_str, col_str, player):
-    row = int(row_str)
-    col = int(col_str)
-    player_token = player.get_token()
+def _check_left_to_right_win(board, player_token):
+    row_iter = rows_number = len(board)
+    column_iter = columns_number = len(board[0])
 
     tokens_in_line = 1
 
     for i in range(1, 4):
 
-        if row + i < self.rows and col + i < self.columns:
+        if row_iter + i < rows_number and column_iter + i < columns_number:
 
-            if self.board[row + i][col + i] == player_token:
+            if board[row_iter + i][column_iter + i] == player_token:
                 tokens_in_line += 1
             else:
                 break
         else:
             break
-
     for i in range(1, 4):
 
-        if row - i >= 0 and col - i >= 0:
+        if row_iter - i >= 0 and column_iter - i >= 0:
 
-            if self.board[row - i][col - i] == player_token:
+            if board[row_iter - i][column_iter - i] == player_token:
                 tokens_in_line += 1
             else:
                 break
@@ -96,18 +89,16 @@ def _check_left_to_right_win(self, row_str, col_str, player):
     return False
 
 
-def _check_right_to_left_win(self, row_str, col_str, player):
-    row = int(row_str)
-    col = int(col_str)
-    player_token = player.get_token()
-
+def _check_right_to_left_win(board, player_token):
+    row_iter = rows_number = len(board)
+    column_iter = columns_number = len(board[0])
     tokens_in_line = 1
 
     for i in range(1, 4):
 
-        if row + i < self.rows and col - i >= 0:
+        if row_iter + i < rows_number and column_iter - i >= 0:
 
-            if self.board[row + i][col - i] == player_token:
+            if board[row_iter + i][column_iter - i] == player_token:
                 tokens_in_line += 1
             else:
                 break
@@ -116,9 +107,9 @@ def _check_right_to_left_win(self, row_str, col_str, player):
 
     for i in range(1, 4):
 
-        if row - i >= 0 and col + i < self.columns:
+        if row_iter - i >= 0 and column_iter + i < columns_number:
 
-            if self.board[row - i][col + i] == player_token:
+            if board[row_iter - i][column_iter + i] == player_token:
                 tokens_in_line += 1
             else:
                 break

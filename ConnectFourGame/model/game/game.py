@@ -15,18 +15,15 @@ class Game:
         return self.columns
 
     def get_winner(self):
-        return self.winner
+        return check_for_winner(self.get_board())
 
     def is_end(self):
         if check_if_sb_could_move(self.board) or check_for_winner(self.get_board()) is not PlayerToken.NOBODY:
-            return 1
-        return 0
-    #TODO Change to true and false
+            return True
+        return False
 
-    def insert(self, col, player):
+    def insert(self, column, player_token):
         """Insert the player in the given column."""
-        for row in range(len(self.board) - 1, -1, -1):
-            if self.board[row][int(col)] == PlayerToken.NOBODY:
-                self.board[row][int(col)] = player.get_token()
-                self.empty_cells -= 1
-    # TODO Refactor this
+        for row in range(start=len(self.board) - 1, stop=-1, step=-1):
+            if self.board[row][column] == PlayerToken.NOBODY:
+                self.board[row][column] = player_token

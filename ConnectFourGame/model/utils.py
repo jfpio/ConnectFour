@@ -9,7 +9,7 @@ def get_input_from_range(lower_number, higher_number):
             print(f"Enter valid number from range {lower_number} to {higher_number}")
         else:
             if lower_number <= number <= higher_number:
-                return number
+                return int(number)
             else:
                 print(f"Enter valid number from range {lower_number} to {higher_number}")
 

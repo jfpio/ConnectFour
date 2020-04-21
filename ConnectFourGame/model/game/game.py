@@ -1,12 +1,14 @@
-from ConnectFourGame.model.player.constants import PlayerToken
-from ConnectFourGame.model.game.game_logic import check_if_sb_could_move, check_for_winner
+from ConnectFourGame.model.player.constants import Player
+from ConnectFourGame.model.game.winner_checking import check_for_player_win
 
 
 class Game:
     def __init__(self, columns=7, rows=6):
         self.columns = int(columns)
         self.rows = int(rows)
-        self.board = [[PlayerToken.NOBODY for x in range(int(columns))] for y in range(int(rows))]
+        self.board = [[Player.NOBODY for x in range(int(columns))] for y in range(int(rows))]
+        self.empty_cells = columns * rows
+        self.winner = Player.NOBODY
 
     def get_board(self):
         return self.board
@@ -15,15 +17,22 @@ class Game:
         return self.columns
 
     def get_winner(self):
-        return check_for_winner(self.get_board())
+        return self.winner
 
     def is_end(self):
-        if check_if_sb_could_move(self.board) or check_for_winner(self.get_board()) is not PlayerToken.NOBODY:
+        if self.empty_cells == 0 or self.winner != Player.NOBODY:
             return True
         return False
 
     def insert(self, column, player_token):
         """Insert the player in the given column."""
-        for row in range(start=len(self.board) - 1, stop=-1, step=-1):
-            if self.board[row][column] == PlayerToken.NOBODY:
-                self.board[row][column] = player_token
+        for row in range(len(self.board) - 1, -1, -1):
+            if self.board[row][int(column)] == Player.NOBODY:
+                self.board[row][int(column)] = player_token
+                self.empty_cells -= 1
+                if check_for_player_win(board=self.board,
+                                        chosen_row=row,
+                                        chosen_column=column,
+                                        player_token=player_token):
+                    self.winner = player_token
+                break

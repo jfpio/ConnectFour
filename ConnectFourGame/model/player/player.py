@@ -6,4 +6,4 @@ class Player:
         self.token = token
 
     def get_token(self):
-        return self.token.value
+        return self.token

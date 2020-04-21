@@ -8,4 +8,4 @@ class AiPlayer(Player):
         self.ai = Ai(search_depth, self.token)
 
     def get_move(self, board):
-        pass
+        return 0

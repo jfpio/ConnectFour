@@ -1,4 +1,4 @@
-from ConnectFourGame.model.player.constants import PlayerToken
+from ConnectFourGame.model.player.constants import Player
 
 
 class View:
@@ -16,10 +16,10 @@ class View:
         print("")
         for row in range(len(board)):
             for col in range(len(board[row])):
-                if board[row][col] == PlayerToken.NOBODY:
+                if board[row][col] == Player.NOBODY:
                     print("[ ]", end="")
                 else:
-                    print("[", board[row][col], "]", sep="", end="")
+                    print("[", board[row][col].value, "]", sep="", end="")
             print("")
         print("")
 

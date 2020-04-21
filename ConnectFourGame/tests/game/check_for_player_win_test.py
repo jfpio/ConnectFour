@@ -2,6 +2,7 @@ import unittest
 
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
 from ConnectFourGame.model.player.constants import Player
+from ConnectFourGame.tests.utils import transform_board_for_game
 
 
 class TestStringMethods(unittest.TestCase):
@@ -23,14 +24,3 @@ class TestStringMethods(unittest.TestCase):
         ]
         self.assertFalse(check_for_player_win(transform_board_for_game(board), 1, 2, Player.O))
 
-
-def transform_board_for_game(board):
-    for row in board:
-        for i in range(len(row)):
-            if row[i] == 1:
-                row[i] = Player.X
-            elif row[i] == -1:
-                row[i] = Player.O
-            elif row[i] == 0:
-                row[i] = Player.NOBODY
-    return board

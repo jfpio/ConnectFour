@@ -35,4 +35,5 @@ class Game:
                                         chosen_column=column,
                                         player_token=player_token):
                     self.winner = player_token
-                break
+                return True
+        return False

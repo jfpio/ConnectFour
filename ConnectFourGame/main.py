@@ -19,7 +19,9 @@ while not game.is_end():
     view.display_board(game.get_board())
 
     move = current_player.get_move(game.get_board())
-    game.insert(move, current_player.get_token())
+    if not game.insert(move, current_player.get_token()):
+        print("Wrong move")
+        continue
     current_player = first_player if current_player == second_player else second_player
 
 view.display_board(game.get_board())

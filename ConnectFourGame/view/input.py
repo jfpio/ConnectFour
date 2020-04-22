@@ -5,7 +5,7 @@ from ConnectFourGame.model.utils import get_input_from_range
 
 class Input:
     def get_player_type(self, token):
-        print("Player types: \n1. human\n2. ai")
+        print("PlayerToken types: \n1. human\n2. ai")
         print(f"Choose {token} player type: ")
         current_input = get_input_from_range(1, 2)
         if current_input is 1:

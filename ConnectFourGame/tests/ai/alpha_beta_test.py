@@ -1,5 +1,5 @@
 import unittest
-from ConnectFourGame.model.ai.alpha_beta import get_valid_moves
+from ConnectFourGame.model.ai.get_valid_moves import get_valid_moves
 from ConnectFourGame.tests.utils import transform_board_for_game
 
 

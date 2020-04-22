@@ -1,14 +1,14 @@
 from ConnectFourGame.view.view import View
 from ConnectFourGame.view.input import Input
-from ConnectFourGame.model.player.constants import Player
+from ConnectFourGame.model.player.constants import PlayerToken
 from ConnectFourGame.model.game.game import Game
 
 view = View()
 view.display_welcome_screen()
 gameInput = Input()
 
-first_player = gameInput.get_player_type(Player.X)
-second_player = gameInput.get_player_type(Player.O)
+first_player = gameInput.get_player_type(PlayerToken.X)
+second_player = gameInput.get_player_type(PlayerToken.O)
 game = Game(gameInput.get_board_cols(), gameInput.get_board_rows())
 
 

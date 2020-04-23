@@ -26,7 +26,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_if_ai_win_with_random_human(self):
         first_player = HumanPlayer(PlayerToken.X)
-        second_player = AiPlayer(PlayerToken.O, 7)
+        second_player = AiPlayer(PlayerToken.O, 5)
 
         game = Game(7, 6)
         current_player = first_player
@@ -38,6 +38,8 @@ class TestStringMethods(unittest.TestCase):
             else:
                 move = current_player.get_move(game.get_board())
                 game.insert(move, current_player.get_token())
+                View().display_board(game.get_board())
+                a = 0
             current_player = first_player if current_player == second_player else second_player
         View().display_board(game.get_board())
         self.assertEqual(PlayerToken.O, game.get_winner())

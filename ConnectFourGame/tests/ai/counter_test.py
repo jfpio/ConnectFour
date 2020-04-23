@@ -1,6 +1,6 @@
 import unittest
-from ConnectFourGame.model.ai.evaluation import count_in_vertical, count_in_horizontal,\
-    count_from_down_left_to_up_right, count_from_left_up_to_right_down
+from ConnectFourGame.model.ai.counting import count_in_vertical, count_in_horizontal,\
+    count_from_down_left_to_up_right, count_from_up_left_to_down_right
 from ConnectFourGame.model.player.constants import PlayerToken
 from ConnectFourGame.tests.utils import transform_board_for_game
 
@@ -77,7 +77,7 @@ class TestCounters(unittest.TestCase):
             [1, 1, -1, -1],
         ]
         self.assertEqual(expected_counter,
-                         count_from_left_up_to_right_down(transform_board_for_game(board), player, move))
+                         count_from_up_left_to_down_right(transform_board_for_game(board), player, move))
 
     def test_count_in_diagonal_4(self):
         expected_counter = 0
@@ -90,4 +90,4 @@ class TestCounters(unittest.TestCase):
             [1, 1, -1, -1],
         ]
         self.assertEqual(expected_counter,
-                         count_from_left_up_to_right_down(transform_board_for_game(board), player, move))
+                         count_from_up_left_to_down_right(transform_board_for_game(board), player, move))

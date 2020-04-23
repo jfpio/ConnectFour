@@ -1,5 +1,5 @@
 from ConnectFourGame.model.player.player import Player
-from ConnectFourGame.model.ai.alpha_beta import get_move_with_alpha_beta_pruning
+from ConnectFourGame.model.ai.alpha_beta import get_move_with_alpha_beta
 
 
 class AiPlayer(Player):
@@ -8,4 +8,4 @@ class AiPlayer(Player):
         self.search_depth = search_depth
 
     def get_move(self, board):
-        return get_move_with_alpha_beta_pruning(board, self.search_depth, self.get_token())
+        return get_move_with_alpha_beta(board, self.search_depth, self.get_token())

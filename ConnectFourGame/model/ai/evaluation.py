@@ -1,6 +1,8 @@
 from ConnectFourGame.model.ai.get_valid_moves import get_valid_moves
 from ConnectFourGame.model.ai.counting import count_moves
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
+from ConnectFourGame.model.utils import get_opposite_player
+from ConnectFourGame.view.view import View
 
 SCORE_FOR_BLOCKED_MOVE = 0
 SCORE_FOR_ONE = 5
@@ -10,11 +12,23 @@ SCORE_FOR_WIN = 10000
 
 # TODO Something is wrong!
 
-def evaluation(board, maximizing_player, player):
-    if maximizing_player == player:
-        return evaluation_for_maximizing_player(board, player)
+
+def evaluation(board, maximizing_player, player, last_move):
+    # Without heuristic, minimax
+    if maximizing_player != player:
+        if check_for_player_win(board, last_move[0], last_move[1], maximizing_player):
+            return 1
+        else:
+            return 0
     else:
-        return evaluation_for_minimizing_player(board, player)
+        if check_for_player_win(board, last_move[0], last_move[1], get_opposite_player(maximizing_player)):
+            return -1
+        else:
+            return 0
+    # if maximizing_player == player:
+    #     return evaluation_for_maximizing_player(board, player)
+    # else:
+    #     return evaluation_for_minimizing_player(board, player)
 
 
 def evaluation_for_maximizing_player(board, player):

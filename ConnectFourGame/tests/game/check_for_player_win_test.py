@@ -24,3 +24,11 @@ class TestStringMethods(unittest.TestCase):
         ]
         self.assertFalse(check_for_player_win(transform_board_for_game(board), 1, 2, PlayerToken.O))
 
+    def test_for_winner_in_diagonal(self):
+        board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0],
+            [1, 1, -1, -1, -1],
+            [1, -1, -1, -1, 1],
+        ]
+        assert check_for_player_win(transform_board_for_game(board), 0, 3, PlayerToken.X)

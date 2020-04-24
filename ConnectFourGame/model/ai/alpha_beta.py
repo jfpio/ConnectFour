@@ -10,15 +10,13 @@ def get_move_with_alpha_beta(board, depth, current_player):
     beta = math.inf
     moves = get_valid_moves(board)
     move = -1
-    if depth == 0 or not moves:
-        return evaluation(board, current_player, current_player)
     best = -math.inf
     for row, column in moves:
         current_board = copy_array(board)
         current_board[row][column] = current_player
         value = alpha_beta(current_board, depth - 1, alpha, beta,
                            maximizing_player=current_player,
-                           current_player=current_player,
+                           current_player=get_opposite_player(current_player),
                            last_move=(row, column))
         if value > best:
             best = value
@@ -31,9 +29,10 @@ def get_move_with_alpha_beta(board, depth, current_player):
 
 def alpha_beta(board, depth, alpha, beta, maximizing_player, current_player, last_move):
     moves = get_valid_moves(board)
-    if depth == 0 or not moves or check_for_player_win(board, last_move[0], last_move[1], current_player):
-        return evaluation(board, maximizing_player, current_player)
-    if maximizing_player == maximizing_player:
+    if depth == 0 or not moves\
+            or check_for_player_win(board, last_move[0], last_move[1], get_opposite_player(current_player)):
+        return evaluation(board, maximizing_player, current_player, last_move)
+    if maximizing_player == current_player:
         best = -math.inf
         for row, column in moves:
             current_board = copy_array(board)

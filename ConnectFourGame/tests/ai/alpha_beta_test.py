@@ -26,7 +26,7 @@ class TestStringMethods(unittest.TestCase):
         ]
         self.assertEqual(expected_moves, get_valid_moves(transform_board_for_game(board)))
 
-    def test_if_ai_block_move(self):
+    def test_if_ai_could_block_move_1(self):
         board = [
             [0, 0, 0, 0, 0],
             [1, 0, 0, 0, 0],
@@ -34,4 +34,24 @@ class TestStringMethods(unittest.TestCase):
             [1, 0, -1, 0, 0],
         ]
         expected_move = 0
+        self.assertEqual(expected_move, get_move_with_alpha_beta(transform_board_for_game(board), 4, PlayerToken.O))
+
+    def test_if_ai_could_block_move_2(self):
+        board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0],
+            [1, 1, -1, -1, -1],
+            [1, -1, -1, -1, 1],
+        ]
+        expected_move = 3
+        self.assertEqual(expected_move, get_move_with_alpha_beta(transform_board_for_game(board), 2, PlayerToken.O))
+
+    def test_if_ai_could_block_move_3(self):
+        board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, -1, 0, 0, -1],
+            [1, 1, 1, 0, -1],
+        ]
+        expected_move = 3
         self.assertEqual(expected_move, get_move_with_alpha_beta(transform_board_for_game(board), 4, PlayerToken.O))

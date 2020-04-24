@@ -1,5 +1,5 @@
 from ConnectFourGame.model.player.constants import PlayerToken
-from ConnectFourGame.view.view import View
+
 
 def count_moves(board, player, move):
     results = [0 for i in range(4)]

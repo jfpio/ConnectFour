@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Player(Enum):
+class PlayerToken(Enum):
     X = 'X'
     O = 'O'
     NOBODY = 0

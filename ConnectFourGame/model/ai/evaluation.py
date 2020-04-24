@@ -56,16 +56,13 @@ def get_score_for_board(board, maximizing_player):
 
 def evaluate_window(window, maximizing_player):
     score = 0
-    if window.count(maximizing_player) == 4: # TODO Is it win? If yes, why we have that
-        score += 100
-    elif window.count(maximizing_player) == 3 and window.count(PlayerToken.NOBODY) == 1:
-        score += 5
+    if window.count(maximizing_player) == 3 and window.count(PlayerToken.NOBODY) == 1:
+        score += SCORE_FOR_THREE
     elif window.count(maximizing_player) == 2 and window.count(PlayerToken.NOBODY) == 2:
-        score += 2
+        score += SCORE_FOR_TWO
     if window.count(get_opposite_player(maximizing_player)) == 3 and window.count(PlayerToken.NOBODY) == 1:
         score -= 30
     return score
-
 
 def get_score_for_center(board, player):
     if len(board) % 2 == 0:

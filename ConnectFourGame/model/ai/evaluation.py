@@ -74,5 +74,5 @@ def get_score_for_center(board, player):
         return (center_column_left.count(player) + center_column_right.count(player)) * 3
 
     else:
-        center_column = board[len(board)/2][:]
+        center_column = board[int(len(board)/2)][:]
         return center_column.count(player) * 3

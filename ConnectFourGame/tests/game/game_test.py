@@ -45,8 +45,8 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(PlayerToken.O, game.get_winner())
 
     def test_if_ai_with_higher_depth_win_with_ai_with_lower_depth(self):
-        first_player = AiPlayer(PlayerToken.X, 1)
-        second_player = AiPlayer(PlayerToken.O, 8)
+        first_player = AiPlayer(PlayerToken.X, 2)
+        second_player = AiPlayer(PlayerToken.O, 4)
 
         game = Game(7, 6)
         current_player = first_player

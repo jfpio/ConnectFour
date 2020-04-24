@@ -29,7 +29,7 @@ def get_move_with_alpha_beta(board, depth, current_player):
 
 def alpha_beta(board, depth, alpha, beta, maximizing_player, current_player, last_move):
     moves = get_valid_moves(board)
-    if depth == 0 or not moves\
+    if depth == 0 or not moves \
             or check_for_player_win(board, last_move[0], last_move[1], get_opposite_player(current_player)):
         return evaluation(board, maximizing_player, current_player, last_move)
     if maximizing_player == current_player:

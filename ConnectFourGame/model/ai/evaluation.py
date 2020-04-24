@@ -2,6 +2,7 @@ from ConnectFourGame.model.ai.get_valid_moves import get_valid_moves
 from ConnectFourGame.model.ai.counting import count_moves
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
 from ConnectFourGame.model.utils import get_opposite_player
+from ConnectFourGame.model.player.constants import PlayerToken
 from ConnectFourGame.view.view import View
 
 SCORE_FOR_BLOCKED_MOVE = 0
@@ -10,59 +11,68 @@ SCORE_FOR_TWO = 10
 SCORE_FOR_THREE = 30
 SCORE_FOR_WIN = 10000
 
-# TODO Something is wrong!
-
 
 def evaluation(board, maximizing_player, player, last_move):
-    # Without heuristic, minimax
-    if maximizing_player != player:
-        if check_for_player_win(board, last_move[0], last_move[1], maximizing_player):
-            return 1
-        else:
-            return 0
+    if check_for_player_win(board, last_move[0], last_move[1], player):
+        return SCORE_FOR_WIN
+    elif check_for_player_win(board, last_move[0], last_move[1], get_opposite_player(maximizing_player)):
+        return -SCORE_FOR_WIN
     else:
-        if check_for_player_win(board, last_move[0], last_move[1], get_opposite_player(maximizing_player)):
-            return -1
-        else:
-            return 0
-    # if maximizing_player == player:
-    #     return evaluation_for_maximizing_player(board, player)
-    # else:
-    #     return evaluation_for_minimizing_player(board, player)
+        return get_score_for_board(board, maximizing_player)
 
 
-def evaluation_for_maximizing_player(board, player):
+def get_score_for_board(board, maximizing_player):
     score = 0
-    counter_list = [0 for i in range(5)]
-    for next_possible_move in get_valid_moves(board):
-        if check_for_player_win(board, next_possible_move[0], next_possible_move[1], player):
-            score += SCORE_FOR_WIN
-        counter_list = sum_values_from_two_list_with_same_len(count_moves(board, player, next_possible_move),
-                                                              counter_list)
-    score += counter_list[0] * SCORE_FOR_BLOCKED_MOVE
-    score += counter_list[1] * SCORE_FOR_ONE
-    score += counter_list[2] * SCORE_FOR_TWO
-    score += counter_list[3] * SCORE_FOR_THREE
+
+    score += get_score_for_center(board, maximizing_player)
+    score -= get_score_for_center(board, get_opposite_player(maximizing_player))
+    number_of_columns = len(board[0])
+    number_of_rows = len(board)
+    window_length = 4
+    for row in range(number_of_rows):
+        row_array = [i for i in board[row]]
+        for column in range(number_of_columns - 3):
+            window = row_array[column:column + window_length]
+            score += evaluate_window(window, maximizing_player)
+
+    for column in range(number_of_columns):
+        col_array = [row[column] for row in board]
+        for row in range(number_of_rows - 3):
+            window = col_array[row:row + window_length]
+            score += evaluate_window(window, maximizing_player)
+
+    for row in range(number_of_rows - 3):
+        for column in range(number_of_columns - 3):
+            window = [board[row + i][column + i] for i in range(window_length)]
+            score += evaluate_window(window, maximizing_player)
+
+    for row in range(number_of_rows - 3):
+        for column in range(number_of_columns - 3):
+            window = [board[row + 3 - i][column + i] for i in range(window_length)]
+            score += evaluate_window(window, maximizing_player)
+
     return score
 
 
-def evaluation_for_minimizing_player(board, player):
+def evaluate_window(window, maximizing_player):
     score = 0
-    counter_list = [0 for i in range(4)]
-    for next_possible_move in get_valid_moves(board):
-        if check_for_player_win(board, next_possible_move[0], next_possible_move[1], player):
-            score -= SCORE_FOR_WIN
-        counter_list = sum_values_from_two_list_with_same_len(count_moves(board, player, next_possible_move),
-                                                              counter_list)
-    score -= counter_list[0] * SCORE_FOR_BLOCKED_MOVE
-    score -= counter_list[1] * SCORE_FOR_ONE
-    score -= counter_list[2] * SCORE_FOR_TWO
-    score -= counter_list[3] * SCORE_FOR_THREE
+    if window.count(maximizing_player) == 4: # TODO Is it win? If yes, why we have that
+        score += 100
+    elif window.count(maximizing_player) == 3 and window.count(PlayerToken.NOBODY) == 1:
+        score += 5
+    elif window.count(maximizing_player) == 2 and window.count(PlayerToken.NOBODY) == 2:
+        score += 2
+    if window.count(get_opposite_player(maximizing_player)) == 3 and window.count(PlayerToken.NOBODY) == 1:
+        score -= 30
     return score
 
 
-def sum_values_from_two_list_with_same_len(first_array, second_array):
-    new_list = first_array[:]
-    for i in range(len(first_array)):
-        new_list[i] = first_array[i] + second_array[i]
-    return new_list
+def get_score_for_center(board, player):
+    if len(board) % 2 == 0:
+        center_column_left = board[int(len(board)/2 - 1)][:]
+        center_column_right = board[int(len(board)/2)][:]
+        return (center_column_left.count(player) + center_column_right.count(player)) * 3
+
+    else:
+        center_column = board[len(board)/2][:]
+        return center_column.count(player) * 3

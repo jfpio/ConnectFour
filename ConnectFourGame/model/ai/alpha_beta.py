@@ -1,5 +1,5 @@
 import math
-from ConnectFourGame.model.ai.get_valid_moves import get_valid_moves
+from ConnectFourGame.model.game.get_valid_moves import get_valid_moves
 from ConnectFourGame.model.ai.evaluation import evaluation
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
 from ConnectFourGame.model.utils import get_opposite_player

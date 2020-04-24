@@ -1,7 +1,7 @@
 import unittest
 from random import randint
 
-from ConnectFourGame.model.player.constants import PlayerToken
+from ConnectFourGame.model.player.player_token import PlayerToken
 from ConnectFourGame.model.game.game import Game
 from ConnectFourGame.model.player.human_player import HumanPlayer
 from ConnectFourGame.model.player.ai_player import AiPlayer

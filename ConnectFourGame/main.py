@@ -1,6 +1,6 @@
 from ConnectFourGame.view.view import View
 from ConnectFourGame.view.input import Input
-from ConnectFourGame.model.player.constants import PlayerToken
+from ConnectFourGame.model.player.player_token import PlayerToken
 from ConnectFourGame.model.game.game import Game
 
 view = View()

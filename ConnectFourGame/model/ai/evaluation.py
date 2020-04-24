@@ -1,14 +1,7 @@
-from ConnectFourGame.model.ai.get_valid_moves import get_valid_moves
-from ConnectFourGame.model.ai.counting import count_moves
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
 from ConnectFourGame.model.utils import get_opposite_player
-from ConnectFourGame.model.player.constants import PlayerToken
-from ConnectFourGame.view.view import View
+from ConnectFourGame.model.player.player_token import PlayerToken
 
-SCORE_FOR_BLOCKED_MOVE = 0
-SCORE_FOR_ONE = 5
-SCORE_FOR_TWO = 10
-SCORE_FOR_THREE = 30
 SCORE_FOR_WIN = 10000
 
 
@@ -56,13 +49,16 @@ def get_score_for_board(board, maximizing_player):
 
 def evaluate_window(window, maximizing_player):
     score = 0
-    if window.count(maximizing_player) == 3 and window.count(PlayerToken.NOBODY) == 1:
-        score += SCORE_FOR_THREE
+    if window.count(maximizing_player) == 4:
+        score += 100
+    elif window.count(maximizing_player) == 3 and window.count(PlayerToken.NOBODY) == 1:
+        score += 5
     elif window.count(maximizing_player) == 2 and window.count(PlayerToken.NOBODY) == 2:
-        score += SCORE_FOR_TWO
+        score += 2
     if window.count(get_opposite_player(maximizing_player)) == 3 and window.count(PlayerToken.NOBODY) == 1:
         score -= 30
     return score
+
 
 def get_score_for_center(board, player):
     if len(board) % 2 == 0:

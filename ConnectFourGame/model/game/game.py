@@ -1,4 +1,4 @@
-from ConnectFourGame.model.player.constants import PlayerToken
+from ConnectFourGame.model.player.player_token import PlayerToken
 from ConnectFourGame.model.game.winner_checking import check_for_player_win
 
 

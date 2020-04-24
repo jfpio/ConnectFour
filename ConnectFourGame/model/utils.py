@@ -1,4 +1,4 @@
-from ConnectFourGame.model.player.constants import PlayerToken
+from ConnectFourGame.model.player.player_token import PlayerToken
 
 
 def get_opposite_player(player):
